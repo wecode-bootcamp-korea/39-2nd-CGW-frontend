@@ -3,6 +3,7 @@ import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
+import styled from 'styled-components';
 
 function NavMenu() {
   return (
@@ -39,7 +40,11 @@ function NavMenu() {
             />
             <Button
               variant="danger"
-              style={{ height: '35px', width: '80px', padding: '2px 8px' }}
+              style={{
+                height: '35px',
+                width: '80px',
+                padding: '2px 8px',
+              }}
             >
               검색
             </Button>

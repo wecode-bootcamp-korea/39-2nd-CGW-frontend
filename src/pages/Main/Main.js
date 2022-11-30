@@ -7,6 +7,7 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
+<<<<<<< HEAD
 SwiperCore.use([Navigation, Autoplay]);
 
 function Main() {
@@ -186,5 +187,10 @@ const MovieScore = styled.li`
   margin-right: 15px;
   font-size: 16px;
 `;
+=======
+function Main() {
+  return <p>hello</p>;
+}
+>>>>>>> 3de3534 (mock데이터로 구현한 movie list layout)
 
 export default Main;

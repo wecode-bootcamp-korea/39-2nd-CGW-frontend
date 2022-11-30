@@ -9,7 +9,10 @@
     "bootstrap": "^5.2.3",
     "react": "^18.2.0",
     "react-bootstrap": "^2.6.0",
+<<<<<<< HEAD
     "react-calendar": "^4.0.0",
+=======
+>>>>>>> 3de3534 (mock데이터로 구현한 movie list layout)
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.4.3",
     "react-scripts": "5.0.1",
