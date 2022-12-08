@@ -30,6 +30,7 @@ const Directions = ({ origin, destination }) => {
   }, [origin.lat, origin.lng, destination.lat, destination.lng]);
 
   const directionsCallback = (result, status) => {
+    console.log(status);
     if (status === 'OK' && count.current === 0) {
       count.current += 1;
       setDirections(result);
@@ -80,7 +81,7 @@ const Map = () => {
     }
   }, [latitude, longitude, error]);
   const startPoint = currentPosition;
-  const endPoint = { lat: PLACES[1].lat, lng: PLACES[1].lng };
+  const endPoint = { lat: PLACES[9].lat, lng: PLACES[9].lng };
 
   return (
     <LoadScript googleMapsApiKey={process.env.REACT_APP_GOGGLE_API_KEY}>
@@ -104,7 +105,7 @@ const MapInfo = styled.div`
   width: 950px;
   height: 50px;
   top: 0px;
-  background-color: #fff;
+  background-color: #f8f9fa;
 `;
 const MapInfoContent = styled.span`
   width: 310px;

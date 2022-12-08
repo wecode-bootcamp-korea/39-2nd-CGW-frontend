@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
@@ -8,16 +8,22 @@ import Navbar from 'react-bootstrap/Navbar';
 import styled, { keyframes } from 'styled-components';
 
 function NavMenu() {
-  const [movieList, setMovieList] = useState([]);
+  // const [movieList, setMovieList] = useState([]);
   const [inputState, setInputState] = useState('');
   const [showList, setShowList] = useState(false);
+  // const remove = localStorage.removeItem('token');
+  const params = useParams();
+  const id = params.id;
+
+  const [movieList, setmMovieList] = useState([]);
 
   useEffect(() => {
-    fetch('/data/movieData.json')
+    fetch('http://10.58.52.204:3000/movies', {
+      method: 'GET',
+    })
       .then(response => response.json())
-      .then(data => setMovieList(data));
+      .then(data => setmMovieList(data));
   }, []);
-
   // useEffect(() => {
   //   fetch('http://10.58.52.67:3000/movies', {
   //     method: 'GET',
@@ -49,8 +55,9 @@ function NavMenu() {
             navbarScroll
           >
             <Nav.Link href="/">영화</Nav.Link>
-            <Nav.Link href="/order">예매내역</Nav.Link>
-            <Nav.Link href="/Login">로그인</Nav.Link>
+            <Nav.Link href="/bookhistory">예매내역</Nav.Link>
+
+            <Nav.Link href="/login">로그인</Nav.Link>
           </Nav>
           <Form className="d-flex" style={{ alignItems: 'center' }}>
             <Form.Control
@@ -94,7 +101,7 @@ function NavMenu() {
               {movieList.map((list, index) => {
                 if (list.title.toLowerCase().includes(inputState)) {
                   return (
-                    <StyledLink key={index} to="/">
+                    <StyledLink key={index} to={`/times/${list.id}`}>
                       <MovieFiltered>
                         <MovieInfoBox>
                           <ThumbsImg>

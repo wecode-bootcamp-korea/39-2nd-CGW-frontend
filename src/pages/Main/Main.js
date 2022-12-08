@@ -14,7 +14,7 @@ function Main() {
   const [movieList, setmMovieList] = useState([]);
 
   useEffect(() => {
-    fetch('http://10.58.52.67:3000/movies', {
+    fetch('http://10.58.52.204:3000/movies', {
       method: 'GET',
     })
       .then(response => response.json())
@@ -49,7 +49,7 @@ function Main() {
           {movieList.map(movie => {
             return (
               <Movie key={movie.id}>
-                <MovieLink to={`/movie/${movie.id}`}>
+                <MovieLink to={`times/${movie.id}`}>
                   <MovieContent>
                     <MovieId>{movie.id}</MovieId>
                     <MovieThumbnail src={movie.thumbnail} alt="poster" />

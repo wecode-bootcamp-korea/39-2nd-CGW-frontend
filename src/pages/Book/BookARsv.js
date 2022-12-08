@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { Navigate, useNavigate, useSearchParams } from 'react-router-dom';
 import BookB from './BookB';
 import Calendar from 'react-calendar';
 import styled, { keyframes } from 'styled-components';
@@ -12,8 +12,15 @@ const BookARsv = ({ params }) => {
   const [showSeat, setShowSeat] = useState(false);
   const [userSelect, setUserSelect] = useState('');
   const [filterData, setFilterData] = useState([]);
+  const token = localStorage.getItem('token');
 
   const IP = 'http://10.58.52.204:3000/times';
+  const navigate = useNavigate();
+
+  const goLogin = () => {
+    alert('로그인이 필요한 서비스입니다.');
+    navigate('/login');
+  };
 
   const [selectList, setSelectList] = useState({
     place: '',
@@ -94,7 +101,9 @@ const BookARsv = ({ params }) => {
       )}/${Number(selectTimeId.join(''))}`
     )
       .then(res => res.json())
-      .then(data => console.log(data));
+      .then(data => {
+        setFilterData(data);
+      });
   };
 
   if (!movieData) return null;
@@ -229,7 +238,13 @@ const BookARsv = ({ params }) => {
           </SeatButtonGrey>
         )}
       </ButtonBox>
-      {showSeat && <BookB setShowSeat={setShowSeat} />}
+      {showSeat &&
+        filterData.length !== 0 &&
+        (token ? (
+          <BookB setShowSeat={setShowSeat} filterData={filterData} />
+        ) : (
+          goLogin()
+        ))}
     </>
   );
 };

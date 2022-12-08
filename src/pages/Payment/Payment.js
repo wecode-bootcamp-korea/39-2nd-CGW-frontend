@@ -2,10 +2,13 @@ import React, { useEffect, useState } from 'react';
 import Modal from './component/Modal';
 import styled from 'styled-components';
 import { Link, useNavigate } from 'react-router-dom';
+import BookHistory from './BookHistory';
 
 const Payment = () => {
   const [movieInfo, setMovieInfo] = useState({});
   const [isOpenModal, setIsOpenModal] = useState(false);
+  const num = localStorage.getItem('num');
+  const price = Number(localStorage.getItem('price'));
 
   const openModal = () => {
     setIsOpenModal(!isOpenModal);
@@ -25,8 +28,8 @@ const Payment = () => {
       },
       body: JSON.stringify({
         item_name: 'seat',
-        quantity: 2,
-        total_amount: 20000,
+        quantity: num,
+        total_amount: price,
         tax_free_amount: 1,
       }),
     })
@@ -79,21 +82,21 @@ const Payment = () => {
           <StepBox>step 1.</StepBox>
           <CouponBox>
             <Text>할인쿠폰</Text>
-            <img src="images/check.png" alt="check" />{' '}
+            <img src="images/check.png" alt="check" />
           </CouponBox>
         </CouponContainer>
         <CouponContainer>
           <StepBox>step 2.</StepBox>
           <CouponBox>
             <Text>관람권/기프티콘</Text>
-            <img src="images/check.png" alt="check" />{' '}
+            <img src="images/check.png" alt="check" />
           </CouponBox>
         </CouponContainer>
         <CouponContainer>
           <StepBox>step 3.</StepBox>
           <CouponBox>
-            <Text>포인트 및 기타결제 수단</Text>{' '}
-            <img src="images/check.png" alt="check" />{' '}
+            <Text>포인트 및 기타결제 수단</Text>
+            <img src="images/check.png" alt="check" />
           </CouponBox>
         </CouponContainer>
         <CouponContainerEnd>
@@ -103,7 +106,7 @@ const Payment = () => {
               <KaKaoPayImg src="https://img1.daumcdn.net/thumb/R800x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FcEaPmw%2FbtrcIUODymI%2FEBvA7nx7wVTcdLIrgiVsJK%2Fimg.jpg" />
               <div>
                 <PaymentBox>결제하실 금액 :</PaymentBox>
-                <PayWonBox>{movieInfo.price}원</PayWonBox>
+                <PayWonBox>{price}원</PayWonBox>
               </div>
             </PaymentInfo>
             <PayListFirst>
@@ -118,7 +121,8 @@ const Payment = () => {
         </CouponContainerEnd>
       </CouponContainerBox>
       <PayBotton onClick={payClick}>결제하기</PayBotton>
-      {isOpenModal && <Modal openModal={openModal} />}
+      {/* <BookHistory /> */}
+      {/* {isOpenModal && <Modal openModal={openModal} />} */}
     </PaymentContainer>
   );
 };

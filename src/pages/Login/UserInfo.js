@@ -19,7 +19,7 @@ const UserInfo = () => {
   const kakaoEmail = localStorage.getItem('kakaoEmail');
 
   const clickBtn = () => {
-    fetch('http://10.58.52.182:3000/users/signup', {
+    fetch('http://10.58.52.204:3000/users/signup', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json;charset=utf-8',
@@ -27,7 +27,7 @@ const UserInfo = () => {
       },
       body: JSON.stringify({
         name: inputValue.name,
-        date: inputValue.birth,
+        birth: inputValue.birth,
         phone: inputValue.phone,
         kakaoId: kakaoId,
       }),
