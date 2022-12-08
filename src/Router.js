@@ -12,6 +12,7 @@ import NaverLogin from './pages/Login/NaverLogin';
 import UserInfo from './pages/Login/UserInfo';
 import BookB from './pages/Book/BookB';
 import PaymentKakao from './pages/Payment/PaymentKakao';
+import BookHistory from './pages/Payment/BookHistory';
 
 const Router = () => {
   return (
@@ -25,10 +26,10 @@ const Router = () => {
         <Route path="/login/naver" element={<NaverLogin />} />
         <Route path="/userinfo" element={<UserInfo />} />
         <Route path="/Payment" element={<Payment />} />
-        <Route path="/times/movie_id/:id" element={<Book />} />
+        <Route path="/times/:id" element={<Book />} />
         <Route path="/kakaoPayment/approval" element={<PaymentKakao />} />
+        <Route path="/bookhistory" element={<BookHistory />} />
         <Route path="/Book" element={<Book />} />
-        <Route path="/BookA" element={<BookA />} />
         <Route path="/BookB" element={<BookB />} />
       </Routes>
       <Footer />

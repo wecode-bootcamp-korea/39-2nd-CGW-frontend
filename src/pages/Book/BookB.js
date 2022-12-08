@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
-const BookB = ({ setShowSeat }) => {
+const BookB = ({ setShowSeat, filterData, movieData }) => {
   const [numAdult, setNumAdult] = useState(0);
   const [numTeenager, setNumTeenager] = useState(0);
   const [select, setSelect] = useState([]);
@@ -11,13 +11,15 @@ const BookB = ({ setShowSeat }) => {
   const totalNum = numAdult + numTeenager;
   const navigate = useNavigate();
 
-  useEffect(() => {
-    fetch('/data/reservedSeat.json')
-      .then(res => res.json())
-      .then(data => {
-        setReserved(data);
-      });
-  }, []);
+  console.log(totalPrice);
+
+  // useEffect(() => {
+  //   fetch('/data/reservedSeat.json')
+  //     .then(res => res.json())
+  //     .then(data => {
+  //       setReserved(data);
+  //     });
+  // }, []);
 
   const btnAdultMinus = () => {
     if (numAdult) {
@@ -60,9 +62,9 @@ const BookB = ({ setShowSeat }) => {
         // Authorization: accessToken,
       },
       body: JSON.stringify({
-        movieOption_id: reserved.movieOption_id,
+        movieOption_id: filterData.movieOption_id,
         seat_id: select,
-        // seatid: select,
+        price_id: 1,
         // adult: numAdult,
         // teenager: numTeenager,
       }),
@@ -74,6 +76,9 @@ const BookB = ({ setShowSeat }) => {
         } else if (select.length == 0) {
           alert('인원과 좌석을 선택해주세요.');
         } else {
+          localStorage.setItem('price', totalPrice);
+          localStorage.setItem('num', totalNum);
+          localStorage.setItem('seatId', JSON.stringify(select));
           navigate('/Payment');
         }
       });
@@ -97,7 +102,7 @@ const BookB = ({ setShowSeat }) => {
     }
   };
 
-  console.log(select);
+  // console.log(select);
 
   return (
     <ModalWrap>
@@ -125,9 +130,10 @@ const BookB = ({ setShowSeat }) => {
           <CinemaSeat>
             <CinemaScreen>SCREEN</CinemaScreen>
             <CinemaSeatList>
-              {reserved &&
-                reserved.seat.map(el => {
-                  if (reserved.reserved_seat_id.includes(el.id)) {
+              {filterData &&
+                filterData.seat.map(el => {
+                  // console.log(el);
+                  if (filterData.reserved_seat_id.includes(el.id)) {
                     return (
                       <CinemaCheckbox key={el.id}>
                         <CinemaCheckboxInput
@@ -167,8 +173,8 @@ const BookB = ({ setShowSeat }) => {
           </CinemaSeat>
           <CinemaInfoArea>
             <CinemaTop>
-              <CinemaImg src="/images/siba.jpg" alt="샘플" />
-              <CinemaTit>아기 시바의 기묘한 모험</CinemaTit>
+              <CinemaImg src={filterData.movie[0].thumbnail} alt="샘플" />
+              <CinemaTit>{filterData.movie[0].title}</CinemaTit>
             </CinemaTop>
             <CinemaInfoList>
               <CinemaInfoElement>
@@ -191,7 +197,9 @@ const BookB = ({ setShowSeat }) => {
             <CinemaBtn onClick={paymentCheck}>결제</CinemaBtn>
           </CinemaInfoArea>
         </CinemaArea>
-        <ModalCloseBtn onClick={() => setShowSeat(false)} />팝업 닫기</ModalCloseBtn>
+        <ModalCloseBtn onClick={() => setShowSeat(false)}>
+          팝업 닫기
+        </ModalCloseBtn>
       </ModalContents>
       <ModalDim />
     </ModalWrap>

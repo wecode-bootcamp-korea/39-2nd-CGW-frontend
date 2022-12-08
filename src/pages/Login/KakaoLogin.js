@@ -7,7 +7,7 @@ const KakaoLogin = () => {
   const navigate = useNavigate();
 
   // 백과 통신
-  fetch('http://10.58.52.182:3000/users/signin', {
+  fetch('http://10.58.52.204:3000/users/signin', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json;charset=utf-8',
@@ -19,7 +19,7 @@ const KakaoLogin = () => {
       if (data) {
         if (data.flag) {
           localStorage.setItem('token', data.jwtToken);
-          localStorage.setItem('kakaoId', data.info.social_id);
+          localStorage.setItem('kakaoId', data.info.id);
           localStorage.setItem('kakaoEmail', data.info.email);
           navigate('/userinfo');
         } else {
