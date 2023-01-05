@@ -7,7 +7,7 @@ const KakaoLogin = () => {
   const navigate = useNavigate();
 
   // 백과 통신
-  fetch('http://10.58.52.182:3000/users/signin', {
+  fetch('http://10.58.52.204:3000/users/signin', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json;charset=utf-8',
@@ -16,6 +16,7 @@ const KakaoLogin = () => {
   })
     .then(response => response.json())
     .then(data => {
+      console.log(data);
       if (data) {
         if (data.flag) {
           localStorage.setItem('token', data.jwtToken);
